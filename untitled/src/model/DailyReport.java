@@ -1,31 +1,31 @@
 package model;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DailyReport {
+public class DailyReport
+{
     private final LocalDateTime reportDate;
+    private final List<EntryExitRecord> entryRecords;
+    private final List<EntryExitRecord> exitRecords;
 
     public DailyReport(LocalDateTime reportDate)
     {
         this.reportDate = reportDate;
+        this.entryRecords = new ArrayList<>();
+        this.exitRecords = new ArrayList<>();
     }
-//todo добавить метод вход и метод выход
-    //при нормальной работе после каждого входа есть 1 выход
-    //при входе создаётся новый обьект классна entryExitRecord на текущий момент времени и он добавляется в конец коллекции
-    //при выходе берётся последний эл. из колекции entryExitRecord и в нее заполняется дата выхода
-    public void addEntryRecord(EntryExitRecord record)
+    public void addEntryRecord(EntryExitRecord entryRecord)
     {
-        entryRecords.add(record);
+        entryRecords.add(entryRecord);
     }
-    public void addExitRecord(EntryExitRecord record)
+    public void addExitRecord(EntryExitRecord exitRecord)
     {
-        exitRecords.add(record);
+        exitRecords.add(exitRecord);
     }
-
-    public boolean hasUnmatchedEntry() {
+    public boolean hasUnmatchedEntry()
+    {
         for (EntryExitRecord entryRecord : entryRecords)
         {
             boolean matched = false;
@@ -44,12 +44,6 @@ public class DailyReport {
         }
         return true;
     }
-    /*
-    public boolean checkEntryConsistency()
-    {
-        return entryRecords.size() % 2 == 0;
-    }
-     */
     public LocalDateTime getReportDate()
     {
         return reportDate;
@@ -61,24 +55,5 @@ public class DailyReport {
     public List<EntryExitRecord> getExitRecords()
     {
         return exitRecords;
-    }
-
-    public Duration calculateTotalWorkingTime() {
-        Duration totalWorkingTime = Duration.ZERO;
-        entryRecords.forEach(entryRecord -> {
-            if (!entryRecord.isEntry()) {
-                return;
-            }
-            LocalDateTime entryTime = entryRecord.getTime();
-            EntryExitRecord exitRecord = exitRecords.stream()
-                    .filter(record -> !record.isEntry() && record.getTime().isAfter(entryTime))
-                    .findFirst()
-                    .orElse(null);
-            if (exitRecord != null) {
-                LocalDateTime exitTime = exitRecord.getTime();
-                totalWorkingTime = totalWorkingTime.plus(Duration.between(entryTime, exitTime));
-            }
-        });
-        return totalWorkingTime;
     }
 }
