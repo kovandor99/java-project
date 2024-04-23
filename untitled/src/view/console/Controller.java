@@ -12,16 +12,43 @@ public class Controller
 {
     public static void showAction()
     {
-        System.out.println("Выберите действие:");
-        System.out.println("1. Вход");
-        System.out.println("2. Выход");
-        System.out.println("3. Отработано за сегодня");
+        Scanner userScanner = new Scanner(System.in);
+        Scanner passwordScanner = new Scanner(System.in);
+
+        System.out.println("--------------------------");
+        System.out.println("-Введите имя пользователя-");
+        System.out.println("--------------------------");
+
+        String username = userScanner.nextLine();
+
+        System.out.println("--------------------------");
+        System.out.println("------Введите пароль------");
+        System.out.println("--------------------------");
+
+        String password = passwordScanner.nextLine();
     }
-    public static void selected(int value)
+    public boolean validateUser(String username, String password)
+    {
+        // Проверка правильности введенных учетных данных
+        if (username.equals("correctUsername") && password.equals("correctPassword"))
+        {
+            System.out.println("Успешный вход.");
+            System.out.println("Здравствуйте " + username + "!");
+            return true;
+        } else {
+            System.out.println("Неправильный логин или пароль.");
+            System.out.println("Пожалуйста, проверьте свой пароль и имя аккаунта и попробуйте снова.");
+            return false;
+        }
+    }
+    public static void processAction(int value)
     {
 
-        Scanner scanner = new Scanner(System.in);
-        boolean loggedIn = false;
+
+
+
+
+       /* Scanner scanner = new Scanner(System.in);
         List<EntryExitRecord> entryExitRecords = new ArrayList<>();
 
         switch (value)
@@ -45,10 +72,9 @@ public class Controller
         {
 
             if (!loggedIn)
-            {
-                showAction();
+            {1
                 Controller selected = new Controller();
-                selected.selected(value); // Вызов метода callSwitch
+                selected.processAction(value); // Вызов метода callSwitch
             }
             else {
                 System.out.println("Выберите действие:");
@@ -78,6 +104,6 @@ public class Controller
                         System.out.println("Неверный выбор.");
                 }
             }
-        }
+        }*/
     }
 }

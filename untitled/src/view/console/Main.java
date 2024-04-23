@@ -1,9 +1,5 @@
 package view.console;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import model.EntryExitRecord;
 
 //вывести приветствие
 //авторизация
@@ -19,22 +15,21 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Scanner scanner = new Scanner(System.in);
-        boolean loggedIn = false;
-        List<EntryExitRecord> entryExitRecords = new ArrayList<>();
+
 
         //todo передать из контроллера результат авторизации
         //todo в контроллере сделать метод авторизации
-        while (loggedIn)
+
+        while (validateUser)
         {
             Controller.showAction();
 
             int value = scanner.nextInt();
             scanner.nextLine();
 
-            Controller.showAction(value);
+            Controller.processAction(value);
 
-            if (!loggedIn)
+            if (!validateUser)
             {
                 break;
             }
